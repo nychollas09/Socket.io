@@ -1,0 +1,32 @@
+<div fxFill>
+  <div fxLayout="column" fxLayoutAlign="space-around stretch" fxFill>
+    <div fxFlex="80" style="background-color: #ffffff; padding: 10px; overflow: auto;">
+      <mat-list fxFill>
+        <mat-list-item *ngFor="let mensagem of listaMensagem" [class.minhaMensagem]="getverificarMensagemCoincideComUsuarioRemetente(mensagem)">
+            <h4 mat-line>
+              <strong>{{ mensagem.remetente }}</strong>
+            </h4>
+            <p mat-line>
+              {{ mensagem.mensagem }}
+            </p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <form  fxFlex="20" style="background-color: gainsboro; padding: 10px; z-index: 9999;"
+          fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="formulario" (ngSubmit)="enviar()">
+      
+      <mat-form-field fxFlex="20" >
+        <input matInput placeholder="Nome" formControlName="remetente">
+        <mat-error *ngIf="verificarRequiredRemetente">Esse campo é obrigatório.</mat-error>
+      </mat-form-field> 
+      <mat-form-field fxFlex="60" >
+        <input matInput placeholder="Mensagem" formControlName="mensagem">
+        <mat-error *ngIf="verificarMinLenghtMensagem">Esse campo precisa de no mínimo 5 caracteres.</mat-error>
+      </mat-form-field>      
+
+      <button mat-button color="primary" [disabled]="verificarCondicaoFormulario" type="submit">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
